@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 namespace ProductCatalog.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class ProductsController : ControllerBase
     {
         private static readonly string[] Products = new[]

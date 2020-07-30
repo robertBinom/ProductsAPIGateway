@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 namespace Pricelist.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class PricelistController : ControllerBase
     {
         private static readonly string[] Pricelist = new[]

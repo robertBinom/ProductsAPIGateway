@@ -1,0 +1,30 @@
+{  
+    "ReRoutes": [  
+        {  
+            "DownstreamPathTemplate": "/{everything}",  
+            "DownstreamScheme": "https",  
+            "DownstreamHostAndPorts": [
+				{
+					"Host": "localhost", 
+					"Port": 7011
+				}
+			],	
+            "UpstreamPathTemplate": "/api//pricelist",  
+            "UpstreamHttpMethod": [ "Get" ]  
+        },    
+        {  
+            "DownstreamPathTemplate": "/{everything}",  
+            "DownstreamScheme": "https",  
+            "DownstreamHostAndPorts": [
+				{
+					"Host": "localhost", 
+					"Port": 7012
+				}
+			],	
+			"UpstreamPathTemplate": "/api2/products",  
+            "UpstreamHttpMethod": [ "Get" , "Post", "Put", "Delete" ]  
+        }		
+    ],  
+    "GlobalConfiguration": {  
+    }  
+}  
