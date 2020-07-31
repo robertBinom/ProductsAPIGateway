@@ -18,15 +18,14 @@ namespace APIGateway
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureAppConfiguration((hostingContext, config) => 
+                .ConfigureAppConfiguration((hostingContext, config) =>
                 {
                     config
-                    .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
-                    .AddJsonFile("ocelot.json", optional: true, reloadOnChange: true)
-                    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                    .AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true)
-                    .AddEnvironmentVariables();
-                        
+                        .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
+                        .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                        .AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json", optional: true, reloadOnChange: true)
+                        .AddJsonFile($"configuration.{hostingContext.HostingEnvironment.EnvironmentName}.json")
+                        .AddEnvironmentVariables();
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {

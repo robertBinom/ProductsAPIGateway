@@ -6,11 +6,11 @@
             "DownstreamHostAndPorts": [
 				{
 					"Host": "localhost", 
-					"Port": 7011
+					"Port": 44384
 				}
 			],	
             "UpstreamPathTemplate": "/api1/{everything}",  
-            "UpstreamHttpMethod": [ "Get" ]  
+            "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]  
         },    
         {  
             "DownstreamPathTemplate": "/{everything}",  
@@ -18,13 +18,12 @@
             "DownstreamHostAndPorts": [
 				{
 					"Host": "localhost", 
-					"Port": 7012
+					"Port": 44355
 				}
 			],	
 			"UpstreamPathTemplate": "/api2/{everything}",  
             "UpstreamHttpMethod": [ "Get" , "Post", "Put", "Delete" ]  
-        },
-		"DangerousAcceptAnyServerCertificateValidator": true		
+        }
     ],  
     "GlobalConfiguration": {  
     }  
