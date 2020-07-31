@@ -25,7 +25,7 @@ namespace ProductCatalog.Controllers
         [HttpGet("{id}")]
         public string Get(int id)
         {
-            return Products[id] ?? "There is no such product";
+            return Products.ElementAtOrDefault(id) ?? "There is no such product";
         }
     }
 }

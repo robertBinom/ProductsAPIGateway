@@ -25,7 +25,7 @@ namespace Pricelist.Controllers
         [HttpGet("{id}")]
         public string Get(int id)
         {
-            return Pricelist[id] ?? "There is no such price";
+            return Pricelist.ElementAtOrDefault(id) ?? "There is no such price";
         }
     }
 }
