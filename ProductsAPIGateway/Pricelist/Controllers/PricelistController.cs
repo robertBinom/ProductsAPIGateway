@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using OpenTracing;
 
 namespace Pricelist.Controllers
 {
@@ -11,6 +12,13 @@ namespace Pricelist.Controllers
     [Route("[controller]")]
     public class PricelistController : ControllerBase
     {
+        private readonly ITracer tracer;
+
+        public PricelistController(ITracer tracer)
+        {
+            this.tracer = tracer;
+        }
+
         private static readonly string[] Pricelist = new[]
         {
             "1001", "1002", "1003", "1004", "1005", "1006", "1007", "1008", "1009", "1010"
@@ -25,9 +33,14 @@ namespace Pricelist.Controllers
 
 
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async  Task<ActionResult<IEnumerable<string>>> Get()
         {
-            return Pricelist;
+            using (IScope scope = tracer.BuildSpan("waitingForValues").StartActive(finishSpanOnDispose: true))
+            {
+                await Task.Delay(1000);
+                return Pricelist;
+            }
+
         }
 
         [HttpGet("{id}")]
