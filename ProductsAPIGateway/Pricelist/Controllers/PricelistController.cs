@@ -16,6 +16,14 @@ namespace Pricelist.Controllers
             "1001", "1002", "1003", "1004", "1005", "1006", "1007", "1008", "1009", "1010"
         };
 
+        [HttpGet] // TODO: Prebaciti ovo u neki base controller tako da svi controlleri imaju po defaultu echo
+        [Route("echo/{attributeString}")]
+        public string Echo(string attributeString)
+        {
+            return $"This is working echo message from {this.GetType().Name}: {attributeString}";
+        }
+
+
         [HttpGet]
         public IEnumerable<string> Get()
         {

@@ -16,6 +16,13 @@ namespace ProductCatalog.Controllers
             "Samsung Galaxy A30", "Samsung Galaxy A50", "Samsung Galaxy A70", "Huawei P30", "Huawei P40", 
         };
 
+        [HttpGet] // TODO: Prebaciti ovo u neki base controller tako da svi controlleri imaju po defaultu echo
+        [Route("echo/{attributeString}")]
+        public string Echo(string attributeString)
+        {
+            return $"This is working echo message from {this.GetType().Name}: {attributeString}";
+        }
+
         [HttpGet]
         public IEnumerable<string> Get()
         {
