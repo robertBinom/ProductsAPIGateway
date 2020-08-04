@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using OpenTracing;
 
 namespace ProductCatalog.Controllers
 {
@@ -11,6 +12,16 @@ namespace ProductCatalog.Controllers
     [Route("[controller]")]
     public class ProductsController : ControllerBase
     {
+        private readonly ITracer tracer;
+        private readonly ILogger<ProductsController> logger;
+
+        public ProductsController(ITracer tracer, ILogger<ProductsController> logger)
+        {
+            this.tracer = tracer;
+            this.logger = logger;
+        }
+
+
         private static readonly string[] Products = new[]
         {
             "Samsung Galaxy A30", "Samsung Galaxy A50", "Samsung Galaxy A70", "Huawei P30", "Huawei P40", 

@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Jaeger" Version="0.4.1" />
+    <PackageReference Include="Jaeger" Version="0.2.2" />
     <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
     <PackageReference Include="Ocelot" Version="15.0.6" />
     <PackageReference Include="OpenTracing" Version="0.12.1" />

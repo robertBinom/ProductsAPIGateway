@@ -17,6 +17,8 @@ using Microsoft.Extensions.Logging;
 using OpenTracing;
 using OpenTracing.Contrib.NetCore.CoreFx;
 using OpenTracing.Util;
+using Serilog;
+using Services;
 
 namespace ProductCatalog
 {
@@ -28,13 +30,12 @@ namespace ProductCatalog
             this.configuration = configuration;
         }
 
-
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
 
-            // Adds the Jaeger Tracer.
+
             services.AddSingleton<ITracer>(serviceProvider =>
             {
                 string serviceName = Assembly.GetEntryAssembly().GetName().Name;
@@ -50,10 +51,35 @@ namespace ProductCatalog
 
                 GlobalTracer.Register(tracer);
 
+                
+
                 return tracer;
             });
 
             services.AddOpenTracing();
+
+            //// Adds the Jaeger Tracer.
+            //services.AddSingleton(serviceProvider =>
+            //{
+            //    var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
+
+            //    Environment.SetEnvironmentVariable("JAEGER_SERVICE_NAME", "ProductCat");
+            //    //Environment.SetEnvironmentVariable("JAEGER_AGENT_HOST", "localhost");
+            //    //Environment.SetEnvironmentVariable("JAEGER_AGENT_PORT", "6831"); 
+            //    //Environment.SetEnvironmentVariable("JAEGER_SAMPLER_TYPE", "const");
+            //    //Environment.SetEnvironmentVariable("JAEGER_TRACEID_128BIT", "1");
+            //    //Environment.SetEnvironmentVariable("JAEGER_PROPAGATION", "b3");
+
+
+            //    var config = Jaeger.Configuration.FromEnv(loggerFactory);
+            //    var tracer = config.GetTracer();
+
+            //    OpenTracing.Util.GlobalTracer.Register(tracer);
+
+            //    return tracer;
+            //});
+
+            ////services.AddOpenTracing();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,11 +90,12 @@ namespace ProductCatalog
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseAuthorization();
+
+            //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
