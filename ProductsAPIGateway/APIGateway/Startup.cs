@@ -45,10 +45,7 @@ namespace APIGateway
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context => 
-                {
-                    await context.Response.WriteAsync("Gateway API functions"); // TODO: Napraviti svoj Controller sa Echo i AuthEcho metodama, implementirati AuthEcho svuda
-                });
+                endpoints.MapControllers();
             });
 
             app.UseOcelot().Wait();

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Common;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using OpenTracing;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ namespace ProductCatalog.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ProductsController : ControllerBase
+    public class ProductsController : BaseController
     {
         private readonly ITracer tracer;
         private readonly ILogger<ProductsController> logger;
@@ -24,13 +25,6 @@ namespace ProductCatalog.Controllers
         {
             "Samsung Galaxy A30", "Samsung Galaxy A50", "Samsung Galaxy A70", "Huawei P30", "Huawei P40", 
         };
-
-        [HttpGet] // TODO: Prebaciti ovo u neki base controller tako da svi controlleri imaju po defaultu echo
-        [Route("echo/{attributeString}")]
-        public string Echo(string attributeString)
-        {
-            return $"This is working echo message from {this.GetType().Name}: {attributeString}";
-        }
 
         [HttpGet]
         public IEnumerable<string> Get()
