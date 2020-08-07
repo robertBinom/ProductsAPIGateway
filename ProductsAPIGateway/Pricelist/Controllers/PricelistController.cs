@@ -1,10 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using OpenTracing;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using OpenTracing;
 
 namespace Pricelist.Controllers
 {
@@ -33,11 +30,11 @@ namespace Pricelist.Controllers
 
 
         [HttpGet]
-        public async  Task<ActionResult<IEnumerable<string>>> Get()
+        public IEnumerable<string> Get()
         {
-            using (IScope scope = tracer.BuildSpan("waitingForValues").StartActive(finishSpanOnDispose: true))
+            // Just making new span - testing..
+            using (IScope scope = tracer.BuildSpan("testingNewChildOfSpan").StartActive(finishSpanOnDispose: true))
             {
-                await Task.Delay(1000);
                 return Pricelist;
             }
 

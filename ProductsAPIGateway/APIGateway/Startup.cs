@@ -1,19 +1,12 @@
-using Jaeger.Samplers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
-using System.Reflection;
-using Jaeger;
-using Jaeger.Samplers;
-using Microsoft.Extensions.Logging;
-using OpenTracing;
-using OpenTracing.Util;
+using Services;
 
 namespace APIGateway
 {
@@ -30,27 +23,10 @@ namespace APIGateway
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddOcelot(configuration);
-
-            services.AddSingleton<ITracer>(serviceProvider => 
-            {
-                string serviceName = Assembly.GetEntryAssembly().GetName().Name;
-
-                ILoggerFactory loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
-
-                ISampler sampler = new ConstSampler(sample: true);
-
-                var tracer = new Tracer.Builder(serviceName)
-                    .WithLoggerFactory(loggerFactory)
-                    .WithSampler(sampler)
-                    .Build();
-
-                GlobalTracer.Register(tracer);
-
-                return tracer;
-            });
+            
+            services.AddTracingWithJaeger();
 
             services.AddOpenTracing();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,7 +47,7 @@ namespace APIGateway
             {
                 endpoints.MapGet("/", async context => 
                 {
-                    await context.Response.WriteAsync("Gateway API functions");
+                    await context.Response.WriteAsync("Gateway API functions"); // TODO: Napraviti svoj Controller sa Echo i AuthEcho metodama, implementirati AuthEcho svuda
                 });
             });
 
