@@ -43,8 +43,9 @@ namespace Services
         {
             if (scope == null || context == null)
                 return;
-
-            scope.Span.SetTag(Tags.Component, "ProductCatalog.Action");
+            
+            scope.Span.SetTag(Tags.Component, "Tracing.Middleware.Action");
+            scope.Span.SetTag(Tags.HttpMethod, context.Request.Method);
 
             // Setup B3 headers
             var traceHeaders = new Dictionary<string, string>();
@@ -113,7 +114,7 @@ namespace Services
                 }
             }
 
-            return operationName ?? "UntaggedOperation";
+            return operationName ?? String.Concat("HTTP ", context.Request.Method);
         }
         #endregion
 

@@ -1,6 +1,6 @@
-﻿using Common;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using OpenTracing;
+using Services.Controllers;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,10 +12,7 @@ namespace Pricelist.Controllers
     {
         private readonly ITracer tracer;
 
-        public PricelistController(ITracer tracer)
-        {
-            this.tracer = tracer;
-        }
+        public PricelistController(ITracer tracer) : base(tracer) { }
 
         private static readonly string[] Pricelist = new[]
         {
@@ -26,12 +23,7 @@ namespace Pricelist.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            // Just making new span - testing..
-            using (IScope scope = tracer.BuildSpan("testingNewChildOfSpan").StartActive(finishSpanOnDispose: true))
-            {
-                return Pricelist;
-            }
-
+            return Pricelist;
         }
 
         [HttpGet("{id}")]

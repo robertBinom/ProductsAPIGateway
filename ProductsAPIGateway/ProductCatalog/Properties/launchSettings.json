@@ -15,6 +15,7 @@
       "launchUrl": "products",
       "environmentVariables": {
         "Key": "Value",
+        "JAEGER_SERVICE_NAME": "JAEGERTRACER",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },

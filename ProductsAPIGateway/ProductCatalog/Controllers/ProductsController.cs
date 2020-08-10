@@ -1,7 +1,7 @@
-﻿using Common;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using OpenTracing;
+using Services.Controllers;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,13 +12,8 @@ namespace ProductCatalog.Controllers
     public class ProductsController : BaseController
     {
         private readonly ITracer tracer;
-        private readonly ILogger<ProductsController> logger;
 
-        public ProductsController(ITracer tracer, ILogger<ProductsController> logger)
-        {
-            this.tracer = tracer;
-            this.logger = logger;
-        }
+        public ProductsController(ITracer tracer) : base(tracer) { }
 
 
         private static readonly string[] Products = new[]

@@ -1,5 +1,7 @@
-﻿using Common;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Services.Controllers;
+using OpenTracing;
+
 
 namespace APIGateway.Controllers
 {
@@ -9,6 +11,9 @@ namespace APIGateway.Controllers
     [ApiController]
     public class ECServiceController : BaseController
     {
-        
+        public ECServiceController(ITracer tracer) : base(tracer)
+        {
+
+        }
     }
 }

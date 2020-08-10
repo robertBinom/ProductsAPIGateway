@@ -14,6 +14,7 @@
       "launchBrowser": true,
       "launchUrl": "echo/echotest",
       "environmentVariables": {
+        "JAEGER_SERVICE_NAME": "JAEGERTRACER",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },

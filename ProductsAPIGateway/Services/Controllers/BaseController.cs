@@ -1,12 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OpenTracing;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+using System.Text;
 
-namespace Common
+namespace Services.Controllers
 {
     public class BaseController : ControllerBase
     {
+        protected readonly ITracer _tracer;
+
+        public BaseController(ITracer tracer)
+        {
+            _tracer = tracer;
+        }
+
+        #region ExecuteAPIGateway
+
+        #endregion
+
         [HttpGet]
         [Route("echo/{attributeString}")]
         public string Echo(string attributeString)
@@ -16,9 +28,10 @@ namespace Common
 
         [HttpGet]
         [Route("authecho/{attributeString}")]
-        public string AuthEcho(string attributeString) 
+        public string AuthEcho(string attributeString)
         {
             return $"This is working AUTHENTICATED echo message: {attributeString}";
         }
     }
+
 }

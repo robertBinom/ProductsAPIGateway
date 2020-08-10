@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 using Services;
 
 namespace ProductCatalog
@@ -37,7 +38,13 @@ namespace ProductCatalog
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
+
+            app.UseSerilogRequestLogging();
+
+            app.UseMiddleware<TracingMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
