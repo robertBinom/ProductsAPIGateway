@@ -43,8 +43,6 @@ namespace Pricelist
 
             app.UseAuthorization();
 
-            app.UseSerilogRequestLogging();
-
             app.UseMiddleware<TracingMiddleware>();
 
             app.UseEndpoints(endpoints =>

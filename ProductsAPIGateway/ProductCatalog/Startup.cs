@@ -42,8 +42,6 @@ namespace ProductCatalog
 
             app.UseAuthorization();
 
-            app.UseSerilogRequestLogging();
-
             app.UseMiddleware<TracingMiddleware>();
 
             app.UseEndpoints(endpoints =>
